@@ -1,0 +1,21 @@
+Version=${project.version}
+#
+#  dialog title
+SelectFont=フォントを選択してください
+OK=OK
+Cancel=キャンセル
+#
+#  labels
+FontName=フォント名
+FontStyle=スタイル
+FontSize=サイズ
+Sample=サンプル
+#
+# sample text
+SampleString=Aaあぁアァ亜宇
+#
+# font style
+Plain=標準
+Bold=太字
+Italic=斜体
+BoldItalic=太字 斜体
