@@ -114,7 +114,7 @@ public class MainFrame extends JFrameFA implements EWrapper, Outputable, Compone
 	public final PositionPanel positionPanel;
 	private List<ServerErrorListener> errorListeners = new ArrayList<>();
 	private List<MarketDataListener> marketDataListeners = new ArrayList<>();
-	private List<ServerListener> twsListeners = new ArrayList<>();
+	private List<ServerListener> serverListeners = new ArrayList<>();
 	public int nextValidTickerId = 1;
 	public int nextValidOrderId = 1;
 	protected int nextValidReqId = 1;
@@ -138,7 +138,10 @@ public class MainFrame extends JFrameFA implements EWrapper, Outputable, Compone
 	private boolean dropOrders=false;  // kill an order once in a while
 	private boolean dropMessages=false; // drop a message once in a while
 	private boolean marketDataFeed = false; // "firehose" feed in standalone for testing
-	
+	private static final FileChooser fileChooser = new FileChooser();
+
+	Random random = new Random(0);
+
 	public MainFrame() {
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(this);
@@ -703,11 +706,11 @@ public class MainFrame extends JFrameFA implements EWrapper, Outputable, Compone
 
 	// ////////
 
-	public void addTwsErrorListener(ServerErrorListener el) {
+	public void addServerErrorListener(ServerErrorListener el) {
 		errorListeners.add(el);
 	}
 
-	public void removeTwsErrorListener(ServerErrorListener el) {
+	public void removeServerErrorListener(ServerErrorListener el) {
 		errorListeners.remove(el);
 	}
 
@@ -719,21 +722,21 @@ public class MainFrame extends JFrameFA implements EWrapper, Outputable, Compone
 
 	// /////////
 
-	public void addTwsListener(ServerListener vil) {
+	public void addServerListener(ServerListener vil) {
 		// println("ADDED VI LISTENER"+vil);
-		twsListeners.add(vil);
+		serverListeners.add(vil);
 	}
 
-	public void removeTwsListener(ServerListener vil) {
+	public void removeServerListener(ServerListener vil) {
 		// println("REMOVED VI LISTENER"+vil);
-		twsListeners.remove(vil);
+		serverListeners.remove(vil);
 	}
 
 	public void fireServerEvent(ServerListener.ServerEvent serverEvent) {
 		try {
 			// println("FIRED VI LISTENER" + ibValidId +
 			// "on "+Thread.currentThread());
-			for (ServerListener twsListener : twsListeners) {
+			for (ServerListener twsListener : serverListeners) {
 				if (dropMessages && connectedTo==ConnectedTo.Standalone && random.nextDouble()<0.05) {
 					System.out.println("DROPPED MESSAGE: "+serverEvent.getClass().getSimpleName()+": "+serverEvent.toString());
 					continue;
@@ -889,9 +892,6 @@ public class MainFrame extends JFrameFA implements EWrapper, Outputable, Compone
 		}
 	}
 
-	Random random = new Random(0);
-
-	private static final FileChooser fileChooser = new FileChooser();
 	public void placeOrder(final int orderId, final Contract contract, final Order order) {
 		if (invalidOrder(order)) {
 			new Exception("invalid order: "+order.toString()).printStackTrace();

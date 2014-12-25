@@ -146,7 +146,7 @@ public class PairPanel extends JPanel implements ServerListener, TableColumnMode
 		sellButtonEditor.addTableButtonListener(getBuySellButtonListener(false));
 		table.getColumnModel().getColumn(6).setCellRenderer(sellButtonRenderer);
 		table.getColumnModel().getColumn(6).setCellEditor(sellButtonEditor);
-		mainFrame.addTwsListener(this);
+		mainFrame.addServerListener(this);
 	}
 
 	private TableButtonListener getBuySellButtonListener(final boolean orderAction) {

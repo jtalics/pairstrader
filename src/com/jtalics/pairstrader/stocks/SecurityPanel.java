@@ -172,8 +172,8 @@ public class SecurityPanel extends JPanel implements TableModelListener, TableCo
 		fontibles.add(pe);
 
 		model.addTableModelListener(this);
-		mainFrame.addTwsErrorListener(model);
-		mainFrame.addTwsListener(model);
+		mainFrame.addServerErrorListener(model);
+		mainFrame.addServerListener(model);
 		mainFrame.addMarketDataListener(model);
 
 		//populateWithTestData();

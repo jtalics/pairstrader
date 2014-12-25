@@ -50,9 +50,9 @@ import org.osgi.framework.launch.FrameworkFactory;
 import com.jtalics.pairstrader.util.SplashWindow;
 
 public class Main {
-	public static final String VERSION = " v0.04f";
 	public static final Date expirationDate = new GregorianCalendar(2014, Calendar.SEPTEMBER, 30).getTime();
 
+	public static final String VERSION = " v0.04f";
 	public static String PRODUCT_NAME = "Pairs Trader";
 	public static HelpBroker hb;
 

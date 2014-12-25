@@ -150,9 +150,9 @@ public class PositionPanel extends JPanel implements TableColumnModelListener, F
 
 		table.addMouseListener(buildMouseListener());
 
-		mainFrame.addTwsErrorListener(model);
+		mainFrame.addServerErrorListener(model);
 		mainFrame.addMarketDataListener(model);
-		mainFrame.addTwsListener(model);
+		mainFrame.addServerListener(model);
 		
 		new Thread("CLOSE QUEUE") {
 			@Override
